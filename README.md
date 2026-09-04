@@ -1,91 +1,64 @@
 # PowerShell Help Desk Automation Lab
 
-**PowerShell | Active Directory | Help Desk Automation | Windows Server | User Provisioning | Password Resets | Account Unlocks | CSV Automation | GUI Dashboard**
+**PowerShell | Active Directory | Windows Server | Help Desk Automation | User Provisioning | Password Resets | Account Unlocks | CSV Automation | GUI Dashboard**
 
-Hands-on PowerShell automation lab demonstrating common Help Desk and Active Directory administration tasks, including user provisioning, password resets, account lockout recovery, security-group management, bulk user creation, reporting, and a custom Windows GUI dashboard for common support actions.
+Hands-on PowerShell automation project demonstrating how common Active Directory Help Desk tasks can be automated, verified, and performed through a custom technician-friendly Windows GUI.
 
 ---
 
 ## Project Summary
 
-I built this PowerShell Help Desk Automation Lab to practise how repetitive Active Directory support tasks can be completed efficiently and consistently through automation.
+I built this lab to practise **PowerShell automation for real-world Help Desk and IT Support tasks** in an Active Directory environment.
 
-The project combines **PowerShell scripting, Active Directory administration, troubleshooting, bulk provisioning, reporting, and a custom Help Desk GUI dashboard**.
+The project progressed from individual PowerShell commands to bulk automation, a reusable onboarding script, Active Directory reporting, and finally a custom **PowerShell Help Desk Automation Dashboard**.
 
-In this lab, I:
+### Tasks completed
 
-- Verified and used the Active Directory PowerShell module
 - Queried Active Directory users and account status
-- Created new employee accounts through PowerShell
-- Troubleshot an Active Directory password-policy error
-- Reset user passwords
-- Forced password changes at next logon
-- Detected and unlocked locked user accounts
-- Added users to security groups
-- Verified group membership
+- Created new employee accounts with PowerShell
+- Troubleshot a domain password-policy failure
+- Reset passwords and required password change at next logon
+- Detected and unlocked locked accounts
+- Managed Active Directory security-group membership
 - Created multiple users from CSV data
 - Built a reusable employee onboarding script
 - Added duplicate-user checking and error handling
-- Generated an Active Directory user report
-- Exported Active Directory data to CSV
-- Built a custom PowerShell Help Desk Automation Dashboard
-- Tested password reset, user lookup, account enable/disable, group checks, and account unlock operations through the GUI
+- Generated and exported an Active Directory user report
+- Built a Windows Forms Help Desk dashboard
+- Tested user lookup, password reset, account enable/disable, group checks, and account unlock from the GUI
 
 ---
 
-# Lab Environment
+## Lab Environment
 
 | Component | Configuration |
 |---|---|
-| Server | Windows Server |
-| Domain | `corp.navtejlab.com` |
 | Domain Controller | DC01 |
-| Identity Platform | Active Directory Domain Services |
+| Domain | `corp.navtejlab.com` |
+| Server | Windows Server |
+| Directory Service | Active Directory Domain Services |
 | Automation | Windows PowerShell |
 | PowerShell Module | ActiveDirectory |
-| Script Editor | Windows PowerShell ISE |
+| Script Editor | PowerShell ISE |
 | User OU | Employees |
 | Security Group | IT-Support |
 | Bulk Provisioning | CSV + PowerShell |
-| GUI Framework | Windows Forms |
-| Reporting | PowerShell + CSV Export |
+| GUI | PowerShell Windows Forms |
+| Reporting | PowerShell + CSV |
 
 ---
 
-# Key Automation Scenarios
+# Selected Project Evidence
 
-## 1. Active Directory Module Verification
+The screenshots below highlight the strongest technical outcomes from the project.
 
-Verified that the Active Directory PowerShell module was installed and available before performing administrative tasks.
-
-```powershell
-Get-Module -ListAvailable ActiveDirectory
-```
-
-![PowerShell Active Directory module verified](./screenshots/01-PowerShell-AD-Module-Verified.png)
-
-**Skills demonstrated:** PowerShell modules, Active Directory administration, environment validation
+Complete evidence is available in the [`screenshots`](./screenshots/) directory.
 
 ---
 
-## 2. Active Directory User Query
+## 1. New Employee Provisioning
 
-Queried Active Directory to review usernames and enabled account status.
-
-```powershell
-Get-ADUser -Filter * |
-Select-Object Name,SamAccountName,Enabled
-```
-
-![PowerShell AD users queried](./screenshots/02-PowerShell-AD-Users-Queried.png)
-
-**Skills demonstrated:** `Get-ADUser`, account review, Help Desk investigation
-
----
-
-## 3. New Employee Provisioning
-
-Created a new employee account directly through PowerShell with:
+Created a new Active Directory employee account using PowerShell with:
 
 - First and last name
 - Username
@@ -93,105 +66,41 @@ Created a new employee account directly through PowerShell with:
 - Employees OU placement
 - Temporary password
 - Enabled account
-- Forced password change at next logon
-
-![PowerShell new employee created](./screenshots/03-PowerShell-New-Employee-Created.png)
-
-The newly created user was also verified through Active Directory Users and Computers.
-
-![New user verified in Active Directory](./screenshots/04-PowerShell-New-User-Verified-in-AD.png)
-
-**Skills demonstrated:** `New-ADUser`, account provisioning, OU placement, Active Directory verification
-
----
-
-## 4. Password Policy Troubleshooting
-
-During account creation, Active Directory rejected a temporary password because it did not meet the configured domain password policy.
-
-The error was reviewed, a stronger password was supplied, and account creation completed successfully.
-
-![PowerShell password policy troubleshooting](./screenshots/03A-PowerShell-Password-Policy-Error-Troubleshooting.png)
-
-**Skills demonstrated:** troubleshooting, password policies, error interpretation, corrective action
-
----
-
-## 5. Help Desk Password Reset
-
-Reset a user's password through PowerShell and configured the account so the user must create a new password at the next sign-in.
-
-```powershell
-Set-ADAccountPassword -Identity dmiller -Reset -NewPassword $NewPassword
-
-Set-ADUser -Identity dmiller -ChangePasswordAtLogon $true
-```
-
-Verification confirmed:
-
-- Account enabled
 - Password change required at next logon
 
-![PowerShell password reset](./screenshots/05-PowerShell-Password-Reset-and-Change-at-Logon.png)
+![PowerShell new employee creation](./screenshots/03-PowerShell-New-Employee-Created.png)
 
-**Skills demonstrated:** password reset, account security, Active Directory support
+**Skills demonstrated:** `New-ADUser`, Active Directory provisioning, OU management, account configuration
 
 ---
 
-## 6. Account Lockout Detection & Recovery
+## 2. Account Lockout Detection & Recovery
 
-Simulated repeated failed sign-in attempts to trigger an Active Directory account lockout.
+Simulated failed login attempts to create a real Active Directory account lockout.
 
-Detected the locked account with:
+Detected the locked account using:
 
 ```powershell
 Search-ADAccount -LockedOut
 ```
 
-Then unlocked the account:
+Then restored access using:
 
 ```powershell
 Unlock-ADAccount -Identity dmiller
 ```
 
-Verification confirmed:
-
-```text
-LockedOut: False
-```
-
 ![PowerShell account lockout detected and unlocked](./screenshots/06-PowerShell-Account-Lockout-Detected-and-Unlocked.png)
 
-**Skills demonstrated:** account lockout troubleshooting, `Search-ADAccount`, `Unlock-ADAccount`, verification
+**Skills demonstrated:** account troubleshooting, lockout detection, account recovery, verification
 
 ---
 
-## 7. Security Group Management
+## 3. Bulk User Provisioning
 
-Added a user to the **IT-Support** security group:
+Created multiple Active Directory accounts automatically using a CSV file and PowerShell `foreach` loop.
 
-```powershell
-Add-ADGroupMember -Identity "IT-Support" -Members dmiller
-```
-
-![PowerShell user added to group](./screenshots/07-PowerShell-User-Added-to-IT-Support-Group.png)
-
-Then verified the user's group memberships:
-
-```powershell
-Get-ADPrincipalGroupMembership dmiller |
-Select-Object Name,GroupScope,GroupCategory
-```
-
-![PowerShell group membership verified](./screenshots/08-PowerShell-Group-Membership-Verified.png)
-
-**Skills demonstrated:** security groups, access management, group membership verification
-
----
-
-# Bulk User Provisioning
-
-Instead of creating accounts individually, I created a CSV file containing multiple employees:
+Example CSV:
 
 ```csv
 FirstName,LastName,Username
@@ -200,77 +109,39 @@ Lisa,Patel,lpatel
 Kevin,Lee,klee
 ```
 
-PowerShell successfully imported the user list:
-
-![PowerShell CSV user list verified](./screenshots/09A-PowerShell-CSV-User-List-Verified.png)
-
-A `foreach` loop then created all three Active Directory accounts automatically.
-
 ![PowerShell bulk user creation](./screenshots/09-PowerShell-Bulk-User-Creation.png)
 
-The new accounts were verified afterward.
-
-![PowerShell bulk users verified](./screenshots/10-PowerShell-Bulk-Users-Verified.png)
-
-**Skills demonstrated:** `Import-Csv`, loops, bulk provisioning, Active Directory automation
+**Skills demonstrated:** `Import-Csv`, loops, bulk provisioning, automation
 
 ---
 
-# Reusable Employee Onboarding Script
+## 4. Reusable Employee Onboarding Script
 
-I created a reusable PowerShell onboarding script:
+Built a reusable PowerShell script that:
+
+1. Collects employee information
+2. Checks whether the username already exists
+3. Creates the Active Directory account
+4. Enables the account
+5. Requires password change at next logon
+6. Adds the employee to `IT-Support`
+7. Provides success or error output
+
+Script:
 
 [`New-HelpDeskUser.ps1`](./scripts/New-HelpDeskUser.ps1)
 
-The script:
-
-1. Imports the Active Directory module
-2. Collects employee information
-3. Creates the employee's full name and UPN
-4. Checks whether the username already exists
-5. Creates the Active Directory account
-6. Enables the account
-7. Requires a password change at next logon
-8. Adds the employee to the IT-Support security group
-9. Provides success or error output
-
-![PowerShell employee onboarding script](./screenshots/11-PowerShell-Employee-Onboarding-Script.png)
-
----
-
-## Onboarding Script Execution
-
-The script was tested with a new employee account.
-
-The automation successfully created:
-
-```text
-Name: Peter Parker
-Username: pparker
-Group: IT-Support
-```
+The script was successfully tested with a new employee.
 
 ![PowerShell onboarding script success](./screenshots/12-PowerShell-Onboarding-Script-Success.png)
 
-The resulting Active Directory account and security-group membership were then verified.
-
-![PowerShell onboarding user and group verified](./screenshots/13-PowerShell-Onboarding-User-and-Group-Verified.png)
-
-**Skills demonstrated:** reusable scripting, input handling, duplicate checks, error handling, account provisioning, group assignment
+**Skills demonstrated:** reusable automation, input handling, duplicate checking, error handling, provisioning
 
 ---
 
-# Active Directory Reporting
+## 5. Active Directory User Reporting
 
-Created a Help Desk-style Active Directory report containing:
-
-- Name
-- Username
-- Enabled status
-- Department
-- Title
-
-The report was displayed in PowerShell and exported to CSV.
+Generated an Active Directory user report showing account information and exported the results to CSV.
 
 ```powershell
 Get-ADUser -Filter * -Properties Department,Title,Enabled |
@@ -288,50 +159,44 @@ Export-Csv "C:\Lab\AD-User-Report.csv" -NoTypeInformation
 
 ![PowerShell Active Directory user report](./screenshots/14-PowerShell-AD-User-Report.png)
 
-**Skills demonstrated:** Active Directory reporting, filtering, object selection, CSV export
+**Skills demonstrated:** reporting, filtering, `Select-Object`, `Export-Csv`, Active Directory administration
 
 ---
 
 # PowerShell Help Desk Automation Dashboard
 
-The strongest part of this project was building a custom **Windows Forms Help Desk dashboard** using PowerShell.
+The strongest part of this project was creating a custom **Windows Forms Help Desk dashboard**.
 
-The interface allows a technician to enter a username and perform common Active Directory support actions without manually entering PowerShell commands.
+The dashboard allows a technician to perform common Active Directory support tasks without manually entering individual PowerShell commands.
 
 ![PowerShell Help Desk Automation Dashboard](./screenshots/15-PowerShell-Help-Desk-Automation-Dashboard.png)
 
-The dashboard script is available here:
+Dashboard script:
 
 [`HelpDesk-Automation-Dashboard.ps1`](./scripts/HelpDesk-Automation-Dashboard.ps1)
 
 ---
 
-# Dashboard Features
-
-The GUI provides the following Help Desk actions:
+## Dashboard Functions
 
 | Function | Purpose |
 |---|---|
-| Find User | Retrieve user name, username, enabled status, and lockout status |
+| Find User | Retrieve user name and current account status |
 | Unlock Account | Unlock a locked Active Directory account |
-| Reset Password | Reset a password and require change at next logon |
-| Enable Account | Enable a disabled Active Directory account |
+| Reset Password | Reset password and force change at next logon |
+| Enable Account | Enable a disabled account |
 | Disable Account | Disable an account with confirmation |
-| Check Groups | Display the user's Active Directory group memberships |
-| Add to IT-Support | Add a user to the IT-Support security group |
-| Clear Output | Clear dashboard activity results |
+| Check Groups | Display the user's security-group memberships |
+| Add to IT-Support | Add user to the IT-Support security group |
+| Clear Output | Clear dashboard activity output |
 
-The dashboard also includes a timestamped status/output area to provide feedback after each operation.
+The output area also displays timestamped results so the technician can immediately verify each action.
 
 ---
 
 ## Dashboard User Lookup
 
-The **Find User** function successfully retrieved Peter Parker's Active Directory status.
-
-![PowerShell dashboard user lookup](./screenshots/16-PowerShell-Dashboard-User-Lookup.png)
-
-The dashboard displayed:
+The dashboard successfully queried Peter Parker's account and displayed:
 
 ```text
 User found: Peter Parker
@@ -340,87 +205,93 @@ Enabled: True
 Locked Out: False
 ```
 
----
+![PowerShell dashboard user lookup](./screenshots/16-PowerShell-Dashboard-User-Lookup.png)
 
-## Dashboard Group Membership Check
-
-The **Check Groups** function retrieved the user's current Active Directory group memberships.
-
-![PowerShell dashboard group check](./screenshots/17-PowerShell-Dashboard-Group-Check.png)
-
-This confirmed membership in:
-
-- Domain Users
-- IT-Support
+**Skills demonstrated:** GUI automation, `Get-ADUser`, account-state verification
 
 ---
 
 ## Dashboard Password Reset
 
-The dashboard successfully reset the user's password and required a password change at next logon.
+The dashboard successfully reset a user's password.
 
-![PowerShell dashboard password reset](./screenshots/18-PowerShell-Dashboard-Password-Reset.png)
-
-Output confirmed:
+It also configured the account to require a new password at the next login.
 
 ```text
 Password reset successfully.
 User must change password at next logon.
 ```
 
----
+![PowerShell dashboard password reset](./screenshots/18-PowerShell-Dashboard-Password-Reset.png)
 
-## Dashboard Account Disable / Enable
-
-The dashboard was used to disable the test account.
-
-![PowerShell dashboard account disabled](./screenshots/19-PowerShell-Dashboard-Account-Disabled.png)
-
-Verification confirmed:
-
-```text
-Enabled: False
-```
-
-The same account was then re-enabled.
-
-![PowerShell dashboard account re-enabled](./screenshots/20-PowerShell-Dashboard-Account-Reenabled.png)
-
-Verification confirmed:
-
-```text
-Enabled: True
-```
+**Skills demonstrated:** password administration, secure support workflow, GUI event handling
 
 ---
 
 ## Dashboard Account Unlock
 
-A real Active Directory lockout was generated through repeated failed login attempts.
+A real account lockout was created through repeated failed login attempts.
 
-The dashboard successfully detected:
+The dashboard detected the locked account and was then used to restore access.
+
+Final verification showed:
 
 ```text
-Locked Out: True
+Enabled: True
+Locked Out: False
 ```
-
-![PowerShell dashboard locked account detected](./screenshots/21A-PowerShell-Dashboard-Locked-Account-Detected.png)
-
-The account was then unlocked through the dashboard and rechecked.
 
 ![PowerShell dashboard account unlocked](./screenshots/21-PowerShell-Dashboard-Account-Unlocked.png)
 
-Final verification confirmed:
+**Skills demonstrated:** account lockout troubleshooting, GUI automation, verification
 
-```text
-Locked Out: False
-```
+---
+
+# Additional Technical Evidence
+
+<details>
+<summary><strong>View additional lab screenshots</strong></summary>
+
+### Active Directory Module & Queries
+
+- [Active Directory PowerShell Module Verified](./screenshots/01-PowerShell-AD-Module-Verified.png)
+- [Active Directory Users Queried](./screenshots/02-PowerShell-AD-Users-Queried.png)
+
+### Password & User Administration
+
+- [Password Policy Error Troubleshooting](./screenshots/03A-PowerShell-Password-Policy-Error-Troubleshooting.png)
+- [New User Verified in Active Directory](./screenshots/04-PowerShell-New-User-Verified-in-AD.png)
+- [Password Reset & Change at Logon](./screenshots/05-PowerShell-Password-Reset-and-Change-at-Logon.png)
+
+### Security Groups
+
+- [User Added to IT-Support](./screenshots/07-PowerShell-User-Added-to-IT-Support-Group.png)
+- [Group Membership Verified](./screenshots/08-PowerShell-Group-Membership-Verified.png)
+
+### Bulk Provisioning
+
+- [CSV User List Verified](./screenshots/09A-PowerShell-CSV-User-List-Verified.png)
+- [Bulk Users Verified](./screenshots/10-PowerShell-Bulk-Users-Verified.png)
+
+### Automation Script
+
+- [Employee Onboarding Script](./screenshots/11-PowerShell-Employee-Onboarding-Script.png)
+- [Onboarding User & Group Verified](./screenshots/13-PowerShell-Onboarding-User-and-Group-Verified.png)
+
+### Dashboard Testing
+
+- [Dashboard Group Check](./screenshots/17-PowerShell-Dashboard-Group-Check.png)
+- [Dashboard Account Disabled](./screenshots/19-PowerShell-Dashboard-Account-Disabled.png)
+- [Dashboard Account Re-enabled](./screenshots/20-PowerShell-Dashboard-Account-Reenabled.png)
+- [Dashboard Locked Account Detected](./screenshots/21A-PowerShell-Dashboard-Locked-Account-Detected.png)
+
+</details>
 
 ---
 
 # Help Desk Automation Workflow
 
-The project follows a structured support workflow:
+Throughout the project I followed a structured workflow:
 
 **Identify → Query → Automate → Verify → Document**
 
@@ -430,25 +301,23 @@ Understand the user's request or reported issue.
 
 ### Query
 
-Retrieve the current Active Directory account state.
+Check the current Active Directory account state.
 
 ### Automate
 
-Use PowerShell commands or the dashboard to perform the required administrative action.
+Use PowerShell or the dashboard to perform the required administrative action.
 
 ### Verify
 
-Confirm that the requested change was successfully applied.
+Confirm that the requested change was applied successfully.
 
 ### Document
 
-Save output and technical evidence for troubleshooting and support documentation.
+Record the result and retain technical evidence.
 
 ---
 
 # PowerShell Commands Demonstrated
-
-This project includes practical use of:
 
 ```powershell
 Get-Module
@@ -467,38 +336,30 @@ Import-Csv
 Export-Csv
 Where-Object
 Select-Object
-ForEach
 Read-Host
 ConvertTo-SecureString
 ```
 
 ---
 
-# Troubleshooting Scenarios
+# Troubleshooting & Automation Scenarios
 
-| Scenario | Troubleshooting / Automation | Result |
+| Scenario | Action | Result |
 |---|---|---|
-| AD module verification | Checked installed PowerShell modules | ActiveDirectory module confirmed |
-| Password policy failure | Reviewed AD error and supplied compliant password | User creation succeeded |
-| User account locked | Queried locked accounts and used `Unlock-ADAccount` | Account restored |
-| Password reset request | Reset password and forced change at next logon | Password workflow completed |
-| Group access request | Added user to IT-Support | Membership verified |
-| Multiple employee accounts required | Imported CSV and automated account creation | Three users provisioned |
-| Repetitive onboarding process | Built reusable provisioning script | User and group created automatically |
-| User reporting required | Queried AD and exported data to CSV | Report generated |
-| Routine Help Desk AD tasks | Built custom Windows Forms GUI | Tasks performed through dashboard |
+| Password did not meet domain requirements | Reviewed AD error and supplied a compliant password | User creation succeeded |
+| User account locked | Queried locked accounts and unlocked the account | Access restored |
+| Password reset request | Reset password and forced change at next login | Password workflow completed |
+| Security-group request | Added user to IT-Support | Membership verified |
+| Multiple new employees | Imported CSV and automated provisioning | Multiple accounts created |
+| Repetitive employee onboarding | Built reusable PowerShell script | Account and group assignment automated |
+| User reporting request | Queried AD and exported results | CSV report generated |
+| Routine Help Desk administration | Built custom Windows Forms dashboard | Common AD tasks performed through GUI |
 
 ---
 
 # Error Handling
 
-The reusable onboarding script includes:
-
-- Duplicate username detection
-- `try` / `catch` error handling
-- `-ErrorAction Stop`
-- Clear success output
-- Clear error messages
+The onboarding script includes duplicate-account detection and structured error handling.
 
 Example:
 
@@ -511,7 +372,13 @@ catch {
 }
 ```
 
-This helped make the script more reliable and easier to troubleshoot.
+The script also uses:
+
+```powershell
+-ErrorAction Stop
+```
+
+This makes failures easier to identify and troubleshoot.
 
 ---
 
@@ -519,18 +386,17 @@ This helped make the script more reliable and easier to troubleshoot.
 
 This project was created in a controlled home-lab environment using test accounts.
 
-In a production environment, additional controls should be considered, including:
+In a production environment, additional controls would be required, including:
 
-- Least-privilege administrative permissions
-- Role-based access control
-- Secure credential handling
-- Password and secret management
-- Administrative logging and auditing
+- Least-privilege administrative access
+- Role-based permissions
+- Secure credential management
 - Input validation
+- Administrative logging and auditing
 - Change-management procedures
-- Approval workflows for sensitive account changes
+- Approval workflows for sensitive operations
 
-The dashboard is intended as a learning demonstration of PowerShell and Active Directory automation rather than a production-ready administrative application.
+The dashboard is a learning project demonstrating PowerShell and Active Directory automation rather than a production-ready administrative application.
 
 ---
 
@@ -552,30 +418,7 @@ PowerShell-Help-Desk-Automation-Lab/
 │   └── AD-User-Report.csv
 │
 └── screenshots/
-    ├── 01-PowerShell-AD-Module-Verified.png
-    ├── 02-PowerShell-AD-Users-Queried.png
-    ├── 03A-PowerShell-Password-Policy-Error-Troubleshooting.png
-    ├── 03-PowerShell-New-Employee-Created.png
-    ├── 04-PowerShell-New-User-Verified-in-AD.png
-    ├── 05-PowerShell-Password-Reset-and-Change-at-Logon.png
-    ├── 06-PowerShell-Account-Lockout-Detected-and-Unlocked.png
-    ├── 07-PowerShell-User-Added-to-IT-Support-Group.png
-    ├── 08-PowerShell-Group-Membership-Verified.png
-    ├── 09A-PowerShell-CSV-User-List-Verified.png
-    ├── 09-PowerShell-Bulk-User-Creation.png
-    ├── 10-PowerShell-Bulk-Users-Verified.png
-    ├── 11-PowerShell-Employee-Onboarding-Script.png
-    ├── 12-PowerShell-Onboarding-Script-Success.png
-    ├── 13-PowerShell-Onboarding-User-and-Group-Verified.png
-    ├── 14-PowerShell-AD-User-Report.png
-    ├── 15-PowerShell-Help-Desk-Automation-Dashboard.png
-    ├── 16-PowerShell-Dashboard-User-Lookup.png
-    ├── 17-PowerShell-Dashboard-Group-Check.png
-    ├── 18-PowerShell-Dashboard-Password-Reset.png
-    ├── 19-PowerShell-Dashboard-Account-Disabled.png
-    ├── 20-PowerShell-Dashboard-Account-Reenabled.png
-    ├── 21A-PowerShell-Dashboard-Locked-Account-Detected.png
-    └── 21-PowerShell-Dashboard-Account-Unlocked.png
+    ├── PowerShell lab evidence...
 ```
 
 ---
@@ -584,27 +427,27 @@ PowerShell-Help-Desk-Automation-Lab/
 
 This project strengthened my understanding of how PowerShell can reduce repetitive Active Directory administration work in a Help Desk environment.
 
-Instead of manually performing every task through Active Directory Users and Computers, I practised using PowerShell to query, create, update, unlock, enable, disable, and report on user accounts.
+Instead of performing every task manually through Active Directory Users and Computers, I used PowerShell to query, create, update, unlock, enable, disable, and report on user accounts.
 
-The CSV provisioning exercise demonstrated how a repetitive onboarding task can be converted into a scalable automation process.
+Bulk CSV provisioning showed how repetitive onboarding can be converted into a scalable process.
 
-Building the reusable onboarding script reinforced the importance of **input handling, duplicate checking, error handling, verification, and clear output**.
+Building the reusable onboarding script reinforced the importance of **input handling, duplicate checking, error handling, and verification**.
 
-The GUI dashboard extended the project further by combining individual PowerShell commands into a technician-friendly interface for common support actions.
+Creating the GUI dashboard showed how multiple PowerShell functions can be combined into a simpler technician-facing interface.
 
-Most importantly, the lab reinforced that automation should not simply execute a command. A good support workflow should also **verify the result and clearly communicate whether the action succeeded or failed**.
+Most importantly, the lab reinforced that automation should not only execute a command — it should also **verify the result and clearly communicate whether the action succeeded or failed**.
 
 ---
 
 # Skills Demonstrated
 
-**PowerShell | Active Directory | Windows Server | Help Desk Automation | User Provisioning | Password Resets | Account Unlocks | Security Groups | Bulk User Creation | CSV Automation | Windows Forms | GUI Development | Active Directory Reporting | Error Handling | Troubleshooting | Technical Documentation**
+**PowerShell | Active Directory | Windows Server | Help Desk Automation | User Provisioning | Password Resets | Account Unlocks | Security Groups | CSV Automation | Bulk User Creation | Windows Forms | GUI Development | Active Directory Reporting | Error Handling | Troubleshooting | Technical Documentation**
 
 ---
 
 # Career Relevance
 
-The hands-on skills demonstrated in this project align with responsibilities commonly found in:
+This project demonstrates skills relevant to roles such as:
 
 - Help Desk Technician
 - IT Support Specialist
@@ -612,9 +455,8 @@ The hands-on skills demonstrated in this project align with responsibilities com
 - Desktop Support Technician
 - Technical Support Specialist
 - IT Support Analyst
-- Junior Systems Administrator
-- Active Directory Support
 - Windows Support Technician
+- Junior Systems Administrator
 
 ---
 
@@ -624,25 +466,25 @@ The hands-on skills demonstrated in this project align with responsibilities com
 
 [View Active Directory Help Desk Lab](https://github.com/Navtej8000/Active-Directory-Help-Desk-Lab)
 
-Hands-on Windows Server and Active Directory lab covering user and group administration, Group Policy, account lockout troubleshooting, file permissions, PowerShell onboarding, and domain support.
+Windows Server and Active Directory lab covering users, groups, Group Policy, account lockouts, file permissions, PowerShell, and domain support.
 
 ## DNS, DHCP & Network Troubleshooting Lab
 
 [View DNS, DHCP & Network Troubleshooting Lab](https://github.com/Navtej8000/DNS-DHCP-Network-Troubleshooting-Lab)
 
-Hands-on networking lab covering DNS, DHCP, IP addressing, APIPA recovery, RRAS/NAT, routing, subnetting, Windows Firewall troubleshooting, and structured network diagnostics.
+Networking lab covering DNS, DHCP, IP addressing, APIPA, RRAS/NAT, routing, subnetting, and Windows Firewall troubleshooting.
 
 ## Microsoft 365, Intune & Entra ID Administration Lab
 
 [View Microsoft 365, Intune & Entra ID Administration Lab](https://github.com/Navtej8000/Microsoft-365-Intune-Entra-ID-Lab)
 
-Hands-on Microsoft cloud administration project covering Microsoft 365, Entra ID, Intune, MFA, SSPR, device compliance, application deployment, iOS management, and Conditional Access.
+Microsoft cloud administration project covering Microsoft 365, Entra ID, Intune, MFA, SSPR, endpoint management, compliance, and Conditional Access.
 
 ## Jira Service Management Help Desk Lab
 
 [View Jira Service Management Help Desk Lab](https://github.com/Navtej8000/Jira-Service-Management-Help-Desk-Lab)
 
-Hands-on ITSM project demonstrating ticket triage, troubleshooting, prioritization, escalation, internal documentation, and incident resolution.
+ITSM lab demonstrating ticket triage, troubleshooting, prioritization, escalation, documentation, and incident resolution.
 
 ---
 
@@ -656,4 +498,4 @@ Brampton, Ontario, Canada
 
 ---
 
-**Portfolio Focus:** Hands-on Help Desk, PowerShell Automation, Active Directory, Microsoft 365, Endpoint Management, Networking, and IT Service Management projects.
+**Portfolio Focus:** Help Desk | PowerShell Automation | Active Directory | Microsoft 365 | Endpoint Management | Networking | IT Service Management
