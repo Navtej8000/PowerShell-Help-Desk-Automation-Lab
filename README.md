@@ -491,10 +491,11 @@ ITSM lab demonstrating ticket triage, troubleshooting, prioritization, escalatio
 # Author & Contact
 
 **Navtej Singh**  
-IT Support | Help Desk | PowerShell | Microsoft 365 | Intune | Entra ID | Active Directory | Networking  
+IT Support | Help Desk | Microsoft 365 | Intune | Entra ID | Active Directory | Networking  
 Brampton, Ontario, Canada
 
-[LinkedIn](https://www.linkedin.com/in/navtej-singh-4162351a5/) | [GitHub](https://github.com/Navtej8000)
+[LinkedIn](https://www.linkedin.com/in/navtej-singh-4162351a5/) | [Email](mailto:singhnavtej824@gmail.com) | [GitHub](https://github.com/Navtej8000)
+
 
 ---
 
